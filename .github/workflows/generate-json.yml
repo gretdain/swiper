@@ -2,18 +2,20 @@ name: Generate images.json
 
 on:
   push:
-    paths:
-      - 'images/**'
+    branches:
+      - main
+  workflow_dispatch:  # позволяет запускать вручную
 
 jobs:
-  build:
+  generate-json:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
@@ -29,3 +31,6 @@ jobs:
           git commit -m "Auto-generate images.json" || echo "No changes to commit"
           git pull --rebase https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} main || true
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
+
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
