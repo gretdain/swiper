@@ -9,7 +9,52 @@
 	<link href="./css/style.css" rel="stylesheet">
 </head>
 </html>
+<style>
+
+	#image-list {
+		display: flex;
+		gap: 20px;
+		flex-wrap: wrap;
+	}
+	.image-item {
+		text-align: center;
+		width: 150px;
+	}
+	.image-item img {
+		max-width: 100%;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+	}
+	.image-item span {
+		display: block;
+		margin-top: 5px;
+		font-size: 14px;
+		color: #333;
+		word-break: break-all;
+	}
+</style>
+
 <body>
+<h1>Список картинок</h1>
+<div id="image-list"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(function () {
+		$.getJSON('images/images.json', function (data) {
+			data.forEach(function (filename) {
+				$('#image-list').append(`
+          <div class="image-item">
+            <img src="images/${filename}" alt="${filename}">
+            <span>${filename}</span>
+          </div>
+        `);
+			});
+		});
+	});
+</script>
+
+
 <div class="swipe" id="app">
 	<div class="sw__left">
 		<div class="f-carousel" id="Carousel-1">
