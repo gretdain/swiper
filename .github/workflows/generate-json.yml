@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:  # позволяет запускать вручную
+  workflow_dispatch:
 
 jobs:
   generate-json:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -29,8 +31,8 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add images/images.json
           git commit -m "Auto-generate images.json" || echo "No changes to commit"
-          git pull --rebase https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} main || true
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
+          git pull --rebase
+          git push
 
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
