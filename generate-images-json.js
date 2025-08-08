@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const dir = './images';
-const output = './images.json';
+const output = './json/images.json';
 
 const files = fs
   .readdirSync(dir)

@@ -41,7 +41,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(function () {
-		$.getJSON('images/images.json', function (data) {
+		$.getJSON('images.json', function (data) {
 			data.forEach(function (filename) {
 				$('#image-list').append(`
           <div class="image-item">
