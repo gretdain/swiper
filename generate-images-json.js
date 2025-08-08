@@ -1,0 +1,12 @@
+const fs = require('fs');
+const path = require('path');
+
+const dir = './images';
+const output = './images/images.json';
+
+const files = fs
+  .readdirSync(dir)
+  .filter(file => /\.(png|jpe?g|gif|webp|svg)$/i.test(file));
+
+fs.writeFileSync(output, JSON.stringify(files, null, 2));
+console.log('✅ images.json created with', files.length, 'files');
